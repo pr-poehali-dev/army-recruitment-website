@@ -117,10 +117,16 @@ function AccordionItem({ q, a }: { q: string; a: string }) {
 
 export default function Index() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [selectedRegion, setSelectedRegion] = useState("");
 
   const scrollTo = (id: string) => {
     setMobileMenuOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const selectRegion = (name: string) => {
+    setSelectedRegion(name);
+    document.getElementById("contacts")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -295,6 +301,7 @@ export default function Index() {
             {REGIONS.map((r) => (
               <div
                 key={r.name}
+                onClick={() => selectRegion(r.name)}
                 className="bg-card p-6 hover:bg-[hsl(var(--gold)/0.05)] transition-colors group cursor-pointer"
               >
                 <div className="flex items-start justify-between mb-4">
@@ -518,7 +525,11 @@ export default function Index() {
                   <label className="font-body text-[10px] tracking-[0.2em] uppercase text-foreground/40 block mb-2">
                     Регион
                   </label>
-                  <select className="w-full bg-[hsl(var(--secondary))] border border-[hsl(var(--border))] px-4 py-3 font-body text-sm text-foreground/70 focus:outline-none focus:border-[hsl(var(--gold)/0.5)] transition-colors appearance-none">
+                  <select
+                    value={selectedRegion}
+                    onChange={(e) => setSelectedRegion(e.target.value)}
+                    className="w-full bg-[hsl(var(--secondary))] border border-[hsl(var(--border))] px-4 py-3 font-body text-sm text-foreground/70 focus:outline-none focus:border-[hsl(var(--gold)/0.5)] transition-colors appearance-none"
+                  >
                     <option value="">Выберите регион</option>
                     {REGIONS.map((r) => (
                       <option key={r.name} value={r.name}>

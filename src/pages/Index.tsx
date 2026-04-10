@@ -201,21 +201,16 @@ export default function Index() {
 
       {/* HERO */}
       <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${HERO_IMAGE})` }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-transparent to-background/40" />
+        {/* Российский триколор — белый / синий / красный */}
+        <div className="absolute inset-0" style={{
+          background: "linear-gradient(to bottom, #d4d8e0 0%, #d4d8e0 33.33%, #1a3a6b 33.33%, #1a3a6b 66.66%, #8b1a1a 66.66%, #8b1a1a 100%)"
+        }} />
+        {/* Тёмный оверлей для читаемости текста */}
+        <div className="absolute inset-0" style={{ background: "rgba(8, 12, 22, 0.78)" }} />
+        {/* Тонкое виньетирование снизу для плавного перехода в основной фон */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-24">
-          <div className="inline-flex items-center gap-2 border border-[hsl(var(--gold)/0.4)] px-4 py-2 mb-8 animate-fade-in-up delay-100">
-            <div className="w-1.5 h-1.5 bg-[hsl(var(--gold))] rounded-full" />
-            <span className="font-body text-xs tracking-[0.25em] uppercase text-[hsl(var(--gold))]">
-              Официальный портал Министерства обороны РФ
-            </span>
-          </div>
-
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-[0.05em] uppercase leading-none mb-6 animate-fade-in-up delay-200">
             Служба
             <br />

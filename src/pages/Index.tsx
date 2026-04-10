@@ -122,6 +122,9 @@ export default function Index() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState("");
   const [selectedVacancy, setSelectedVacancy] = useState("");
+  const [formName, setFormName] = useState("");
+  const [formPhone, setFormPhone] = useState("");
+  const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const scrollTo = (id: string) => {
     setMobileMenuOpen(false);
@@ -131,6 +134,34 @@ export default function Index() {
   const selectRegion = (name: string) => {
     setSelectedRegion(name);
     document.getElementById("contacts")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleSubmit = async () => {
+    if (!formName || !formPhone) return;
+    setFormStatus("loading");
+    try {
+      const res = await fetch("https://functions.poehali.dev/a5f22398-6e61-4451-b94a-69f4866fa1b1", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formName,
+          phone: formPhone,
+          region: selectedRegion || "Не указан",
+          comment: selectedVacancy ? `Интересует вакансия: ${selectedVacancy}` : "—",
+        }),
+      });
+      if (res.ok) {
+        setFormStatus("success");
+        setFormName("");
+        setFormPhone("");
+        setSelectedRegion("");
+        setSelectedVacancy("");
+      } else {
+        setFormStatus("error");
+      }
+    } catch {
+      setFormStatus("error");
+    }
   };
 
   return (
@@ -560,6 +591,8 @@ export default function Index() {
                   </label>
                   <input
                     type="text"
+                    value={formName}
+                    onChange={(e) => setFormName(e.target.value)}
                     placeholder="Иванов Иван Иванович"
                     className="w-full bg-[hsl(var(--secondary))] border border-[hsl(var(--border))] px-4 py-3 font-body text-sm text-foreground placeholder:text-foreground/25 focus:outline-none focus:border-[hsl(var(--gold)/0.5)] transition-colors"
                   />
@@ -570,6 +603,8 @@ export default function Index() {
                   </label>
                   <input
                     type="tel"
+                    value={formPhone}
+                    onChange={(e) => setFormPhone(e.target.value)}
                     placeholder="+7 (___) ___-__-__"
                     className="w-full bg-[hsl(var(--secondary))] border border-[hsl(var(--border))] px-4 py-3 font-body text-sm text-foreground placeholder:text-foreground/25 focus:outline-none focus:border-[hsl(var(--gold)/0.5)] transition-colors"
                   />
@@ -603,10 +638,23 @@ export default function Index() {
                     className="w-full bg-[hsl(var(--secondary))] border border-[hsl(var(--border))] px-4 py-3 font-body text-sm text-foreground placeholder:text-foreground/25 focus:outline-none focus:border-[hsl(var(--gold)/0.5)] transition-colors resize-none"
                   />
                 </div>
-                <button className="w-full bg-[hsl(var(--gold))] text-[hsl(var(--navy))] font-display text-sm tracking-[0.15em] uppercase py-4 hover:bg-[hsl(43,74%,42%)] transition-colors flex items-center justify-center gap-2">
-                  <Icon name="FileSignature" size={16} />
-                  Заключить контракт
-                </button>
+                {formStatus === "success" ? (
+                  <div className="w-full bg-green-50 border border-green-200 text-green-700 font-body text-sm py-4 px-4 text-center">
+                    Заявка отправлена! Мы свяжемся с вами в ближайшее время.
+                  </div>
+                ) : (
+                  <button
+                    onClick={handleSubmit}
+                    disabled={formStatus === "loading"}
+                    className="w-full bg-[hsl(var(--gold))] text-[hsl(var(--navy))] font-display text-sm tracking-[0.15em] uppercase py-4 hover:bg-[hsl(43,74%,42%)] transition-colors flex items-center justify-center gap-2 disabled:opacity-60"
+                  >
+                    <Icon name={formStatus === "loading" ? "Loader" : "FileSignature"} size={16} />
+                    {formStatus === "loading" ? "Отправка..." : "Заключить контракт"}
+                  </button>
+                )}
+                {formStatus === "error" && (
+                  <p className="font-body text-xs text-red-500 text-center">Ошибка отправки. Попробуйте ещё раз.</p>
+                )}
                 <p className="font-body text-[10px] text-foreground/30 leading-relaxed text-center">
                   Нажимая кнопку, вы соглашаетесь с обработкой персональных данных
                   в соответствии с требованиями ФЗ-152

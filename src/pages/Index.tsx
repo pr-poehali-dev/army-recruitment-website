@@ -509,7 +509,7 @@ export default function Index() {
                     Telegram
                   </a>
                   <a
-                    href="https://max.ru"
+                    href="https://max.ru/u/f9LHodD0cOIIyYiwmnZu0a2CT7U6lopbFOLuBJ_lLVT5MIVSUsKT1YvH3yY"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-4 py-2.5 border border-[hsl(var(--border))] hover:border-purple-500 hover:text-purple-500 transition-colors font-display text-xs tracking-widest uppercase"

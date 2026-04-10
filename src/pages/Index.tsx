@@ -509,13 +509,13 @@ export default function Index() {
                     Telegram
                   </a>
                   <a
-                    href="https://ok.ru/messages/+79951819808"
+                    href="https://max.ru"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-4 py-2.5 border border-[hsl(var(--border))] hover:border-orange-500 hover:text-orange-500 transition-colors font-display text-xs tracking-widest uppercase"
+                    className="flex items-center gap-2 px-4 py-2.5 border border-[hsl(var(--border))] hover:border-purple-500 hover:text-purple-500 transition-colors font-display text-xs tracking-widest uppercase"
                   >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="text-orange-500"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 6.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zm4.5 8.25c-.414.414-1.5.75-2.625.938l2.25 2.25a.75.75 0 0 1-1.06 1.062L12 16l-3.065 3.001a.75.75 0 1 1-1.06-1.063l2.25-2.25C9 15.5 7.914 15.164 7.5 14.75a.75.75 0 0 1 1.06-1.06c.44.439 1.88.81 3.44.81s3-.371 3.44-.81a.75.75 0 0 1 1.06 1.06z"/></svg>
-                    ОК
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="text-purple-500"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 3a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+                    MAX
                   </a>
                 </div>
               </div>

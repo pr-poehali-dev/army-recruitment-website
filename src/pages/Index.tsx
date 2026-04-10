@@ -118,6 +118,7 @@ function AccordionItem({ q, a }: { q: string; a: string }) {
 export default function Index() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState("");
+  const [selectedVacancy, setSelectedVacancy] = useState("");
 
   const scrollTo = (id: string) => {
     setMobileMenuOpen(false);
@@ -396,6 +397,7 @@ export default function Index() {
             {VACANCIES.map((v) => (
               <div
                 key={v.role}
+                onClick={() => { setSelectedVacancy(v.role); document.getElementById("contacts")?.scrollIntoView({ behavior: "smooth" }); }}
                 className="grid grid-cols-4 px-6 py-4 items-center hover:bg-[hsl(var(--gold)/0.04)] transition-colors cursor-pointer border-b border-[hsl(var(--border)/0.5)] last:border-0 group"
               >
                 <div className="font-display text-sm tracking-wide text-foreground group-hover:text-[hsl(var(--gold))] transition-colors">
@@ -569,6 +571,8 @@ export default function Index() {
                   </label>
                   <textarea
                     rows={3}
+                    value={selectedVacancy ? `Интересует вакансия: ${selectedVacancy}` : ""}
+                    onChange={(e) => setSelectedVacancy(e.target.value.replace("Интересует вакансия: ", ""))}
                     placeholder="Ваш вопрос или пожелание..."
                     className="w-full bg-[hsl(var(--secondary))] border border-[hsl(var(--border))] px-4 py-3 font-body text-sm text-foreground placeholder:text-foreground/25 focus:outline-none focus:border-[hsl(var(--gold)/0.5)] transition-colors resize-none"
                   />

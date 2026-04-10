@@ -210,6 +210,18 @@ export default function Index() {
         {/* Тонкое виньетирование снизу для плавного перехода в основной фон */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
 
+        {/* Солдат справа */}
+        <div
+          className="absolute bottom-0 right-0 w-[38%] h-[90%] bg-no-repeat bg-bottom bg-contain hidden md:block"
+          style={{
+            backgroundImage: `url(https://cdn.poehali.dev/projects/bef0083e-eec9-47a1-a374-befe699f4e5f/files/b1255b6a-ac0a-4fe3-b5e3-6a059edfe9a7.jpg)`,
+            maskImage: "linear-gradient(to left, rgba(0,0,0,0.7) 40%, transparent 100%), linear-gradient(to top, transparent 0%, black 15%)",
+            WebkitMaskImage: "linear-gradient(to left, rgba(0,0,0,0.7) 40%, transparent 100%), linear-gradient(to top, transparent 0%, black 15%)",
+            maskComposite: "intersect",
+            WebkitMaskComposite: "source-in",
+          }}
+        />
+
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-24">
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-[0.05em] uppercase leading-none mb-6 animate-fade-in-up delay-200">
             Служба

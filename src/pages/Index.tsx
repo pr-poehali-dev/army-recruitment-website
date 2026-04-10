@@ -61,6 +61,9 @@ const VACANCIES = [
   { role: "Связист", category: "Войска связи", rank: "Рядовой", pay: "от 215 000 ₽" },
   { role: "Механик-водитель", category: "Мотострелковые войска", rank: "Рядовой", pay: "от 210 000 ₽" },
   { role: "Снайпер", category: "Разведывательные части", rank: "Ст. сержант", pay: "от 270 000 ₽" },
+  { role: "Служба в военной полиции", category: "Освобождённые территории", rank: "Рядовой", pay: "от 210 000 ₽" },
+  { role: "Защита государственной тайны", category: "Тыл", rank: "Сержант", pay: "от 220 000 ₽" },
+  { role: "Водитель доставки грузов", category: "Тыл", rank: "Рядовой", pay: "от 210 000 ₽" },
 ];
 
 const FAQ = [
@@ -418,6 +421,29 @@ export default function Index() {
               <Icon name="Send" size={14} />
               Подать заявку на вакансию
             </button>
+          </div>
+
+          {/* Блок про отношения */}
+          <div className="mt-10 border border-[hsl(var(--gold)/0.3)] bg-[hsl(var(--gold)/0.04)] px-8 py-6 flex items-start gap-4">
+            <div className="w-10 h-10 shrink-0 bg-[hsl(var(--gold)/0.12)] flex items-center justify-center mt-0.5">
+              <Icon name="FileText" size={18} className="text-[hsl(var(--gold))]" />
+            </div>
+            <div>
+              <div className="font-display text-sm tracking-[0.15em] uppercase text-[hsl(var(--gold))] mb-2">
+                Выписываем отношения
+              </div>
+              <p className="font-body text-sm text-foreground/60 leading-relaxed">
+                Помогаем оформить официальные отношения для постановки на воинский учёт,
+                получения отсрочки или перевода к новому месту службы. Обращайтесь —
+                подготовим необходимые документы в кратчайшие сроки.
+              </p>
+              <button
+                onClick={() => scrollTo("contacts")}
+                className="mt-4 inline-flex items-center gap-2 text-[hsl(var(--gold))] font-display text-xs tracking-[0.15em] uppercase hover:opacity-70 transition-opacity"
+              >
+                Узнать подробнее <Icon name="ArrowRight" size={13} />
+              </button>
+            </div>
           </div>
         </div>
       </section>

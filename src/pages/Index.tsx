@@ -256,7 +256,7 @@ export default function Index() {
             {[
               ["85+", "Регионов участия"],
               ["210 000 ₽", "От ежемесячно"],
-              ["400 000 ₽", "Подъёмные"],
+              ["2 300 000 ₽", "Подъёмные"],
             ].map(([val, label]) => (
               <div key={label} className="bg-background/60 px-4 py-5 text-center">
                 <div className="font-display text-xl md:text-2xl text-[hsl(var(--gold))] font-bold">

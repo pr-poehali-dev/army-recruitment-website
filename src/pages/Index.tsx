@@ -205,8 +205,8 @@ export default function Index() {
         <div className="absolute inset-0" style={{
           background: "linear-gradient(to bottom, #d4d8e0 0%, #d4d8e0 33.33%, #1a3a6b 33.33%, #1a3a6b 66.66%, #8b1a1a 66.66%, #8b1a1a 100%)"
         }} />
-        {/* Тёмный оверлей для читаемости текста */}
-        <div className="absolute inset-0" style={{ background: "rgba(8, 12, 22, 0.78)" }} />
+        {/* Светлый оверлей для читаемости текста */}
+        <div className="absolute inset-0" style={{ background: "rgba(240, 242, 247, 0.82)" }} />
         {/* Тонкое виньетирование снизу для плавного перехода в основной фон */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
 

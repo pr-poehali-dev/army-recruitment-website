@@ -668,14 +668,7 @@ export default function Index() {
       {/* FOOTER */}
       <footer className="border-t border-[hsl(var(--gold)/0.1)] py-10 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3">
-            <div className="w-7 h-7 bg-[hsl(var(--crimson))] flex items-center justify-center">
-              <Icon name="Shield" size={13} className="text-white" />
-            </div>
-            <span className="font-display text-xs tracking-[0.2em] uppercase text-foreground/40">
-              Министерство обороны Российской Федерации
-            </span>
-          </div>
+
           <div className="font-body text-xs text-foreground/25">
             © 2024 Все права защищены. Официальный ресурс.
           </div>

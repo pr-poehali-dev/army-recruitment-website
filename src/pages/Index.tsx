@@ -255,7 +255,7 @@ export default function Index() {
         <div
           className="absolute bottom-0 right-0 w-[38%] h-[90%] bg-no-repeat bg-bottom bg-contain hidden md:block"
           style={{
-            backgroundImage: `url(https://cdn.poehali.dev/projects/bef0083e-eec9-47a1-a374-befe699f4e5f/files/b1255b6a-ac0a-4fe3-b5e3-6a059edfe9a7.jpg)`,
+            backgroundImage: `url(https://cdn.poehali.dev/projects/bef0083e-eec9-47a1-a374-befe699f4e5f/files/b8fbd4e2-c315-4ca9-a924-204273d2c74e.jpg)`,
             maskImage: "linear-gradient(to left, rgba(0,0,0,0.7) 40%, transparent 100%), linear-gradient(to top, transparent 0%, black 15%)",
             WebkitMaskImage: "linear-gradient(to left, rgba(0,0,0,0.7) 40%, transparent 100%), linear-gradient(to top, transparent 0%, black 15%)",
             maskComposite: "intersect",

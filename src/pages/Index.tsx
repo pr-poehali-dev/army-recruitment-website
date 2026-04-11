@@ -253,7 +253,7 @@ export default function Index() {
 
         {/* Солдат справа */}
         <div
-          className="absolute bottom-0 right-0 w-[38%] h-[90%] bg-no-repeat bg-bottom bg-contain hidden md:block"
+          className="absolute bottom-0 right-0 w-[55%] h-full bg-no-repeat bg-bottom bg-contain hidden md:block"
           style={{
             backgroundImage: `url(https://cdn.poehali.dev/projects/bef0083e-eec9-47a1-a374-befe699f4e5f/bucket/c07f625d-0376-4ffe-8842-358dd4052818.jpg)`,
             maskImage: "linear-gradient(to left, rgba(0,0,0,0.7) 40%, transparent 100%), linear-gradient(to top, transparent 0%, black 15%)",

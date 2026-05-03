@@ -1,97 +1,10 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
+import Navbar from "@/components/Navbar";
+import { REGIONS, CONDITIONS, VACANCIES, FAQ, SUBMIT_URL } from "@/data/constants";
 
 const HERO_IMAGE =
   "https://cdn.poehali.dev/projects/bef0083e-eec9-47a1-a374-befe699f4e5f/files/279554c8-b928-4c02-814f-f9d0c6fd040f.jpg";
-
-const REGIONS = [
-  { name: "Москва и МО", slots: 48, distance: "0 км", icon: "Building2" },
-  { name: "Санкт-Петербург", slots: 32, distance: "700 км", icon: "Building2" },
-  { name: "Краснодарский край", slots: 61, distance: "1 200 км", icon: "MapPin" },
-  { name: "Ростовская область", slots: 55, distance: "1 080 км", icon: "MapPin" },
-  { name: "Воронежская область", slots: 29, distance: "520 км", icon: "MapPin" },
-  { name: "Белгородская область", slots: 44, distance: "700 км", icon: "Shield" },
-];
-
-const CONDITIONS = [
-  {
-    icon: "Banknote",
-    title: "Денежное довольствие",
-    value: "от 210 000 ₽",
-    desc: "Ежемесячная выплата с учётом боевых надбавок и коэффициентов",
-  },
-  {
-    icon: "HeartPulse",
-    title: "Страховое обеспечение",
-    value: "до 3 млн ₽",
-    desc: "Государственное страхование жизни и здоровья военнослужащего",
-  },
-  {
-    icon: "Home",
-    title: "Жильё",
-    value: "Бесплатно",
-    desc: "Обеспечение жильём и компенсация найма жилого помещения",
-  },
-  {
-    icon: "GraduationCap",
-    title: "Образование",
-    value: "Бесплатно",
-    desc: "Профессиональная подготовка и повышение квалификации за счёт государства",
-  },
-  {
-    icon: "Car",
-    title: "Единовременная выплата",
-    value: "от 2 300 000 ₽",
-    desc: "Единовременная выплата при заключении контракта",
-  },
-  {
-    icon: "Shield",
-    title: "Социальные гарантии",
-    value: "Полный пакет",
-    desc: "Льготы, пенсия, медицинское обеспечение и поддержка семьи",
-  },
-];
-
-const VACANCIES = [
-  { role: "Оператор БПЛА", category: "Специальные войска", rank: "Мл. сержант", pay: "от 230 000 ₽" },
-  { role: "Стрелок-зенитчик", category: "Войска ПВО", rank: "Рядовой", pay: "от 210 000 ₽" },
-  { role: "Наводчик-оператор", category: "Танковые войска", rank: "Ст. сержант", pay: "от 250 000 ₽" },
-  { role: "Военный медик", category: "Медицинская служба", rank: "Сержант", pay: "от 240 000 ₽" },
-  { role: "Сапёр", category: "Инженерные войска", rank: "Сержант", pay: "от 260 000 ₽" },
-  { role: "Связист", category: "Войска связи", rank: "Рядовой", pay: "от 215 000 ₽" },
-  { role: "Механик-водитель", category: "Мотострелковые войска", rank: "Рядовой", pay: "от 210 000 ₽" },
-  { role: "Снайпер", category: "Разведывательные части", rank: "Ст. сержант", pay: "от 270 000 ₽" },
-  { role: "Служба в военной полиции", category: "Освобождённые территории", rank: "Рядовой", pay: "от 210 000 ₽" },
-  { role: "Защита государственной тайны", category: "Тыл", rank: "Сержант", pay: "от 220 000 ₽" },
-  { role: "Водитель доставки грузов", category: "Тыл", rank: "Рядовой", pay: "от 210 000 ₽" },
-];
-
-const FAQ = [
-  {
-    q: "Какой возраст подходит для службы по контракту?",
-    a: "На военную службу по контракту принимаются граждане РФ от 18 до 60 лет. Верхний предел для отдельных категорий может варьироваться в зависимости от специальности и опыта.",
-  },
-  {
-    q: "Обязательна ли военная подготовка перед подписанием контракта?",
-    a: "Опыт военной службы приветствуется, но не является обязательным условием. Все кандидаты без опыта проходят подготовку на учебных полигонах перед выездом в зону ответственности.",
-  },
-  {
-    q: "Какие документы необходимо предоставить?",
-    a: "Паспорт гражданина РФ, военный билет или приписное свидетельство, документы об образовании, медицинская справка о состоянии здоровья. Полный список уточняйте на пункте отбора.",
-  },
-  {
-    q: "Как происходит выплата денежного довольствия?",
-    a: "Денежное довольствие начисляется ежемесячно на банковскую карту. Включает оклад по должности, воинскому званию, надбавки за выслугу лет и особые условия прохождения службы.",
-  },
-  {
-    q: "Предусмотрены ли льготы для семей военнослужащих?",
-    a: "Да. Семьи контрактников получают право на бесплатный проезд, медицинское обеспечение, приоритетное зачисление детей в детские сады и образовательные учреждения.",
-  },
-  {
-    q: "Можно ли расторгнуть контракт досрочно?",
-    a: "Расторжение контракта возможно по состоянию здоровья, семейным обстоятельствам и ряду других оснований, предусмотренных Федеральным законом «О воинской обязанности».",
-  },
-];
 
 function AccordionItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
@@ -119,7 +32,6 @@ function AccordionItem({ q, a }: { q: string; a: string }) {
 }
 
 export default function Index() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [selectedRegion, setSelectedRegion] = useState("");
   const [selectedVacancy, setSelectedVacancy] = useState("");
   const [formName, setFormName] = useState("");
@@ -127,7 +39,6 @@ export default function Index() {
   const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const scrollTo = (id: string) => {
-    setMobileMenuOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -140,7 +51,7 @@ export default function Index() {
     if (!formName || !formPhone) return;
     setFormStatus("loading");
     try {
-      const res = await fetch("https://functions.poehali.dev/a5f22398-6e61-4451-b94a-69f4866fa1b1", {
+      const res = await fetch(SUBMIT_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -166,79 +77,7 @@ export default function Index() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      {/* NAVBAR */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-[hsl(var(--gold)/0.15)]">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-[hsl(var(--crimson))] flex items-center justify-center">
-              <Icon name="Shield" size={16} className="text-white" />
-            </div>
-            <div>
-              <div className="font-display text-sm tracking-[0.2em] uppercase text-[hsl(var(--gold))]">
-                Военная служба
-              </div>
-              <div className="font-body text-[10px] tracking-wider uppercase text-foreground/40">
-                по контракту
-              </div>
-            </div>
-          </div>
-
-          <div className="hidden md:flex items-center gap-8">
-            {[
-              ["regions", "Регионы"],
-              ["conditions", "Условия"],
-              ["vacancies", "Вакансии"],
-              ["faq", "Вопросы"],
-              ["contacts", "Контакты"],
-            ].map(([id, label]) => (
-              <button key={id} onClick={() => scrollTo(id)} className="nav-link">
-                {label}
-              </button>
-            ))}
-          </div>
-
-          <button
-            onClick={() => scrollTo("contacts")}
-            className="hidden md:flex items-center gap-2 bg-[hsl(var(--gold))] text-[hsl(var(--navy))] font-display text-xs tracking-[0.15em] uppercase px-5 py-2.5 hover:bg-[hsl(43,74%,42%)] transition-colors"
-          >
-            <Icon name="FileSignature" size={14} />
-            Заключить контракт
-          </button>
-
-          <button
-            className="md:hidden text-foreground/70"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            <Icon name={mobileMenuOpen ? "X" : "Menu"} size={22} />
-          </button>
-        </div>
-
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-background border-t border-[hsl(var(--gold)/0.15)] px-6 py-4 flex flex-col gap-4 animate-fade-in">
-            {[
-              ["regions", "Регионы"],
-              ["conditions", "Условия"],
-              ["vacancies", "Вакансии на СВО"],
-              ["faq", "Вопросы и ответы"],
-              ["contacts", "Контакты"],
-            ].map(([id, label]) => (
-              <button
-                key={id}
-                onClick={() => scrollTo(id)}
-                className="text-left font-display tracking-widest uppercase text-sm text-foreground/70 hover:text-[hsl(var(--gold))] transition-colors"
-              >
-                {label}
-              </button>
-            ))}
-            <button
-              onClick={() => scrollTo("contacts")}
-              className="mt-2 bg-[hsl(var(--gold))] text-[hsl(var(--navy))] font-display text-xs tracking-[0.15em] uppercase px-5 py-3 text-center"
-            >
-              Заключить контракт
-            </button>
-          </div>
-        )}
-      </nav>
+      <Navbar />
 
       {/* HERO */}
       <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">

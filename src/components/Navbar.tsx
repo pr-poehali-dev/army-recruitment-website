@@ -29,17 +29,11 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-[hsl(var(--gold)/0.15)]">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <button onClick={() => navigate("/")} className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-[hsl(var(--crimson))] flex items-center justify-center">
-            <Icon name="Shield" size={16} className="text-white" />
-          </div>
-          <div>
-            <div className="font-display text-sm tracking-[0.2em] uppercase text-[hsl(var(--gold))]">
-              Военная служба
-            </div>
-            <div className="font-body text-[10px] tracking-wider uppercase text-foreground/40">
-              по контракту
-            </div>
-          </div>
+          <img
+            src="https://cdn.poehali.dev/projects/bef0083e-eec9-47a1-a374-befe699f4e5f/files/0ac64ab8-c22e-4c7e-a885-dfa975ef2edd.jpg"
+            alt="Логотип"
+            className="w-10 h-10 object-cover rounded-sm"
+          />
         </button>
 
         <div className="hidden md:flex items-center gap-8">

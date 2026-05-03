@@ -18,9 +18,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <button onClick={() => navigate("/")} className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 bg-[hsl(var(--crimson))] flex items-center justify-center">
-                <Icon name="Shield" size={16} className="text-white" />
-              </div>
+              <img
+                src="https://cdn.poehali.dev/projects/bef0083e-eec9-47a1-a374-befe699f4e5f/files/0ac64ab8-c22e-4c7e-a885-dfa975ef2edd.jpg"
+                alt="Логотип"
+                className="w-10 h-10 object-cover rounded-sm"
+              />
               <div>
                 <div className="font-display text-sm tracking-[0.2em] uppercase text-[hsl(var(--gold))]">
                   Военная служба

@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import Icon from "@/components/ui/icon";
 import { VACANCIES } from "@/data/constants";
 
@@ -75,6 +76,7 @@ export default function Vacancies() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

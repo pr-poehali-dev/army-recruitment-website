@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import Icon from "@/components/ui/icon";
 import { REGIONS, SUBMIT_URL } from "@/data/constants";
 
@@ -187,6 +188,7 @@ export default function Contacts() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { REGIONS, CONDITIONS, VACANCIES, FAQ, SUBMIT_URL } from "@/data/constants";
 
 const HERO_IMAGE =
@@ -507,15 +508,7 @@ export default function Index() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="border-t border-[hsl(var(--gold)/0.1)] py-10 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-
-          <div className="font-body text-xs text-foreground/25">
-            © 2024 Все права защищены. Официальный ресурс.
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

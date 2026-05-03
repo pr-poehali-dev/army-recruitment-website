@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import Icon from "@/components/ui/icon";
 import { FAQ } from "@/data/constants";
 
@@ -63,6 +64,7 @@ export default function Faq() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

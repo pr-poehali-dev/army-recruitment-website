@@ -170,8 +170,8 @@ export default function Index() {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-[hsl(var(--gold)/0.15)]">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-[200px] h-[200px] bg-[hsl(var(--crimson))] flex items-center justify-center">
-              <Icon name="Shield" size={120} className="text-white" />
+            <div className="w-8 h-8 bg-[hsl(var(--crimson))] flex items-center justify-center">
+              <Icon name="Shield" size={16} className="text-white" />
             </div>
             <div>
               <div className="font-display text-sm tracking-[0.2em] uppercase text-[hsl(var(--gold))]">

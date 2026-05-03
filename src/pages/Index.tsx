@@ -244,10 +244,10 @@ export default function Index() {
       <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Российский триколор — белый / синий / красный */}
         <div className="absolute inset-0" style={{
-          background: "linear-gradient(to bottom, #d4d8e0 0%, #d4d8e0 33.33%, #1a3a6b 33.33%, #1a3a6b 66.66%, #8b1a1a 66.66%, #8b1a1a 100%)"
+          background: "linear-gradient(to bottom, #ffffff 0%, #ffffff 33.33%, #003087 33.33%, #003087 66.66%, #cc0000 66.66%, #cc0000 100%)"
         }} />
         {/* Светлый оверлей для читаемости текста */}
-        <div className="absolute inset-0" style={{ background: "rgba(240, 242, 247, 0.82)" }} />
+        <div className="absolute inset-0" style={{ background: "rgba(255, 255, 255, 0.45)" }} />
         {/* Тонкое виньетирование снизу для плавного перехода в основной фон */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background" />
 

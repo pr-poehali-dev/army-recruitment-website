@@ -264,37 +264,39 @@ export default function Index() {
           }}
         />
 
-        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-24">
+        <div className="relative z-10 max-w-5xl mx-auto px-6 pt-24">
+          <div className="md:max-w-[55%]">
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-[0.05em] uppercase leading-none mb-6 animate-fade-in-up delay-200">
             Служба
             <br />
             <span className="text-[hsl(var(--gold))]">по контракту</span>
           </h1>
 
-          <p className="font-body text-base md:text-lg text-foreground/90 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in-up delay-300">
+          <p className="font-body text-base md:text-lg text-foreground/90 max-w-2xl mb-10 leading-relaxed animate-fade-in-up delay-300">
             Защита Родины — это не просто долг, это призвание. Достойное денежное довольствие,
             полный социальный пакет и государственные гарантии для вас и вашей семьи.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up delay-400">
+          <div className="flex flex-col sm:flex-row items-start gap-4 animate-fade-in-up delay-400">
             <button
               id="contract"
               onClick={() => scrollTo("contacts")}
-              className="flex items-center gap-3 bg-[hsl(var(--gold))] text-[hsl(var(--navy))] font-display text-sm tracking-[0.15em] uppercase px-8 py-4 hover:bg-[hsl(43,74%,42%)] transition-all duration-200 hover:scale-105"
+              className="flex items-center gap-3 bg-[hsl(var(--crimson))] text-white font-display text-base tracking-[0.15em] uppercase px-10 py-5 shadow-lg hover:bg-[hsl(0,65%,28%)] transition-all duration-200 hover:scale-105 font-bold"
             >
-              <Icon name="FileSignature" size={18} />
+              <Icon name="FileSignature" size={20} />
               Заключить контракт
             </button>
             <button
               onClick={() => scrollTo("vacancies")}
-              className="flex items-center gap-3 border border-[hsl(var(--gold)/0.4)] text-foreground/80 font-display text-sm tracking-[0.15em] uppercase px-8 py-4 hover:border-[hsl(var(--gold))] hover:text-[hsl(var(--gold))] transition-colors"
+              className="flex items-center gap-3 border-2 border-[hsl(var(--gold))] text-foreground font-display text-sm tracking-[0.15em] uppercase px-8 py-5 hover:border-[hsl(var(--gold))] hover:bg-[hsl(var(--gold)/0.15)] transition-colors font-semibold"
             >
               <Icon name="Search" size={18} />
               Смотреть вакансии
             </button>
           </div>
+          </div>
 
-          <div className="grid grid-cols-3 gap-px bg-[hsl(var(--gold)/0.1)] mt-16 max-w-2xl mx-auto border border-[hsl(var(--gold)/0.1)] animate-fade-in-up delay-500">
+          <div className="grid grid-cols-3 gap-px bg-[hsl(var(--gold)/0.1)] mt-16 max-w-2xl md:max-w-[55%] md:ml-0 mx-auto border border-[hsl(var(--gold)/0.1)] animate-fade-in-up delay-500">
             {[
               ["85+", "Регионов участия"],
               ["210 000 ₽", "От ежемесячно"],

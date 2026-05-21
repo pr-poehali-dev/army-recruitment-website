@@ -63,8 +63,8 @@ def handler(event: dict, context) -> dict:
             body = json.loads(event.get("body") or "{}")
             cur.execute(
                 """INSERT INTO clients (name, full_name, phone, company, age, conviction, chronic_diseases,
-                   dispensary_record, notes, status, docs_photos, relations_files, tickets_files, contract_files)
-                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s::jsonb, %s::jsonb, %s::jsonb, %s::jsonb)
+                   dispensary_record, notes, status, employee_name, docs_photos, relations_files, tickets_files, contract_files)
+                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s::jsonb, %s::jsonb, %s::jsonb, %s::jsonb)
                    RETURNING *""",
                 (
                     body.get("full_name", ""),
@@ -77,6 +77,7 @@ def handler(event: dict, context) -> dict:
                     body.get("dispensary_record", ""),
                     body.get("notes", ""),
                     body.get("status", "active"),
+                    body.get("employee_name", ""),
                     json.dumps(body.get("docs_photos", [])),
                     json.dumps(body.get("relations_files", [])),
                     json.dumps(body.get("tickets_files", [])),
@@ -91,7 +92,7 @@ def handler(event: dict, context) -> dict:
             body = json.loads(event.get("body") or "{}")
             cur.execute(
                 """UPDATE clients SET name=%s, full_name=%s, phone=%s, company=%s, age=%s, conviction=%s,
-                   chronic_diseases=%s, dispensary_record=%s, notes=%s, status=%s,
+                   chronic_diseases=%s, dispensary_record=%s, notes=%s, status=%s, employee_name=%s,
                    docs_photos=%s::jsonb, relations_files=%s::jsonb, tickets_files=%s::jsonb, contract_files=%s::jsonb,
                    updated_at=NOW()
                    WHERE id=%s RETURNING *""",
@@ -106,6 +107,7 @@ def handler(event: dict, context) -> dict:
                     body.get("dispensary_record", ""),
                     body.get("notes", ""),
                     body.get("status", "active"),
+                    body.get("employee_name", ""),
                     json.dumps(body.get("docs_photos", [])),
                     json.dumps(body.get("relations_files", [])),
                     json.dumps(body.get("tickets_files", [])),

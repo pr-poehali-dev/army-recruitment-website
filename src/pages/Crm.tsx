@@ -21,6 +21,7 @@ interface Client {
   dispensary_record: string;
   notes: string;
   status: string;
+  employee_name: string;
   docs_photos: FileItem[];
   relations_files: FileItem[];
   tickets_files: FileItem[];
@@ -38,6 +39,7 @@ const emptyForm = {
   dispensary_record: "",
   notes: "",
   status: "active",
+  employee_name: "",
   docs_photos: [] as FileItem[],
   relations_files: [] as FileItem[],
   tickets_files: [] as FileItem[],
@@ -191,6 +193,7 @@ export default function Crm() {
       dispensary_record: c.dispensary_record || "",
       notes: c.notes || "",
       status: c.status || "active",
+      employee_name: c.employee_name || "",
       docs_photos: c.docs_photos || [],
       relations_files: c.relations_files || [],
       tickets_files: c.tickets_files || [],
@@ -299,6 +302,7 @@ export default function Crm() {
                   <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden md:table-cell">Судимость</th>
                   <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden lg:table-cell">Хр. заболевания</th>
                   <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden lg:table-cell">Учёт</th>
+                  <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden md:table-cell">Сотрудник</th>
                   <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden xl:table-cell">Файлы</th>
                   <th className="px-4 py-3"></th>
                 </tr>
@@ -326,6 +330,9 @@ export default function Crm() {
                       </td>
                       <td className="px-4 py-3 text-muted-foreground text-xs hidden lg:table-cell max-w-[150px] truncate">
                         {c.dispensary_record || "—"}
+                      </td>
+                      <td className="px-4 py-3 text-muted-foreground text-xs hidden md:table-cell">
+                        {c.employee_name || "—"}
                       </td>
                       <td className="px-4 py-3 hidden xl:table-cell">
                         {totalFiles > 0 ? (
@@ -377,6 +384,7 @@ export default function Crm() {
                 <InfoRow label="Возраст" value={viewClient.age != null ? `${viewClient.age} лет` : null} />
                 <InfoRow label="Компания" value={viewClient.company} />
               </div>
+              <InfoRow label="Сотрудник" value={viewClient.employee_name} />
               <InfoRow label="Судимость / статья" value={viewClient.conviction} />
               <InfoRow label="Хронические заболевания" value={viewClient.chronic_diseases} />
               <InfoRow label="Учёт в ПНД и НД" value={viewClient.dispensary_record} />
@@ -416,6 +424,10 @@ export default function Crm() {
                     className={inputCls} placeholder="30" min={0} max={120} />
                 </Field>
               </div>
+              <Field label="ФИО сотрудника">
+                <input type="text" value={form.employee_name} onChange={(e) => setForm({ ...form, employee_name: e.target.value })}
+                  className={inputCls} placeholder="Петров Пётр Петрович" />
+              </Field>
               <Field label="Судимость / статья">
                 <input type="text" value={form.conviction} onChange={(e) => setForm({ ...form, conviction: e.target.value })}
                   className={inputCls} placeholder="Нет / ст. 158 УК РФ" />

@@ -156,7 +156,7 @@ export default function Crm() {
                   <th className="text-left px-4 py-3 font-medium text-muted-foreground">Имя</th>
                   <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden md:table-cell">Компания</th>
                   <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden sm:table-cell">Телефон</th>
-                  <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden lg:table-cell">Email</th>
+
                   <th className="text-left px-4 py-3 font-medium text-muted-foreground">Статус</th>
                   <th className="px-4 py-3"></th>
                 </tr>
@@ -170,7 +170,7 @@ export default function Crm() {
                     </td>
                     <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">{c.company || "—"}</td>
                     <td className="px-4 py-3 text-muted-foreground hidden sm:table-cell">{c.phone || "—"}</td>
-                    <td className="px-4 py-3 text-muted-foreground hidden lg:table-cell">{c.email || "—"}</td>
+
                     <td className="px-4 py-3">
                       <span className={`px-2 py-0.5 rounded text-xs font-medium ${statusLabel[c.status]?.color || "bg-gray-100 text-gray-500"}`}>
                         {statusLabel[c.status]?.label || c.status}
@@ -228,16 +228,7 @@ export default function Crm() {
                     placeholder="+7 900 000 00 00"
                   />
                 </div>
-                <div>
-                  <label className="text-xs font-medium text-muted-foreground mb-1 block">Email</label>
-                  <input
-                    type="email"
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full border border-border rounded px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[hsl(var(--gold))] bg-background"
-                    placeholder="ivan@mail.ru"
-                  />
-                </div>
+
               </div>
               <div>
                 <label className="text-xs font-medium text-muted-foreground mb-1 block">Компания</label>

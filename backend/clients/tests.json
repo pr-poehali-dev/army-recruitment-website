@@ -5,16 +5,16 @@
       "method": "GET",
       "path": "/",
       "expectedStatus": 200,
-      "expectedBody": {"clients": []},
+      "expectedBody": {"clients": [{}]},
       "bodyMatcher": "partial"
     },
     {
       "name": "Create client",
       "method": "POST",
       "path": "/",
-      "body": {"name": "Тест Клиент", "phone": "+79001234567", "email": "test@example.com", "company": "ООО Тест", "notes": "", "status": "active"},
+      "body": {"full_name": "Иванов Иван Иванович", "phone": "+79001234567", "company": "", "age": 30, "conviction": "", "chronic_diseases": "", "dispensary_record": "", "notes": "", "status": "active"},
       "expectedStatus": 201,
-      "expectedBody": {"client": {"name": "Тест Клиент"}},
+      "expectedBody": {"client": {"full_name": "Иванов Иван Иванович"}},
       "bodyMatcher": "partial"
     }
   ]

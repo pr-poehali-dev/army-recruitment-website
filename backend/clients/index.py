@@ -1,6 +1,6 @@
-import json
+import json  # noqa: F401 - psycopg2-binary
 import os
-import psycopg2  # noqa: F401 - psycopg2-binary
+import psycopg2
 from psycopg2.extras import RealDictCursor
 
 
@@ -8,9 +8,20 @@ def get_conn():
     return psycopg2.connect(os.environ["DATABASE_URL"])
 
 
+def serialize(client):
+    c = dict(client)
+    for f in ("created_at", "updated_at"):
+        if c.get(f):
+            c[f] = c[f].isoformat()
+    for f in ("docs_photos", "relations_files", "tickets_files", "contract_files"):
+        if c.get(f) is None:
+            c[f] = []
+    return c
+
+
 def handler(event: dict, context) -> dict:
     """Управление клиентами CRM: получение, добавление, обновление, удаление."""
-    
+
     cors_headers = {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
@@ -38,69 +49,75 @@ def handler(event: dict, context) -> dict:
             search = params.get("search", "").strip()
             if search:
                 cur.execute(
-                    """SELECT * FROM clients 
-                       WHERE name ILIKE %s OR phone ILIKE %s OR email ILIKE %s OR company ILIKE %s
+                    """SELECT * FROM clients
+                       WHERE full_name ILIKE %s OR name ILIKE %s OR phone ILIKE %s OR company ILIKE %s
                        ORDER BY created_at DESC""",
                     (f"%{search}%", f"%{search}%", f"%{search}%", f"%{search}%"),
                 )
             else:
                 cur.execute("SELECT * FROM clients ORDER BY created_at DESC")
-            clients = [dict(r) for r in cur.fetchall()]
-            for c in clients:
-                if c.get("created_at"):
-                    c["created_at"] = c["created_at"].isoformat()
-                if c.get("updated_at"):
-                    c["updated_at"] = c["updated_at"].isoformat()
+            clients = [serialize(r) for r in cur.fetchall()]
             return {"statusCode": 200, "headers": cors_headers, "body": json.dumps({"clients": clients})}
 
         elif method == "POST":
             body = json.loads(event.get("body") or "{}")
             cur.execute(
-                """INSERT INTO clients (name, phone, email, company, notes, status)
-                   VALUES (%s, %s, %s, %s, %s, %s)
+                """INSERT INTO clients (name, full_name, phone, company, age, conviction, chronic_diseases,
+                   dispensary_record, notes, status, docs_photos, relations_files, tickets_files, contract_files)
+                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s::jsonb, %s::jsonb, %s::jsonb, %s::jsonb)
                    RETURNING *""",
                 (
-                    body.get("name", ""),
+                    body.get("full_name", ""),
+                    body.get("full_name", ""),
                     body.get("phone", ""),
-                    body.get("email", ""),
                     body.get("company", ""),
+                    body.get("age") or None,
+                    body.get("conviction", ""),
+                    body.get("chronic_diseases", ""),
+                    body.get("dispensary_record", ""),
                     body.get("notes", ""),
                     body.get("status", "active"),
+                    json.dumps(body.get("docs_photos", [])),
+                    json.dumps(body.get("relations_files", [])),
+                    json.dumps(body.get("tickets_files", [])),
+                    json.dumps(body.get("contract_files", [])),
                 ),
             )
-            client = dict(cur.fetchone())
+            client = serialize(cur.fetchone())
             conn.commit()
-            if client.get("created_at"):
-                client["created_at"] = client["created_at"].isoformat()
-            if client.get("updated_at"):
-                client["updated_at"] = client["updated_at"].isoformat()
             return {"statusCode": 201, "headers": cors_headers, "body": json.dumps({"client": client})}
 
         elif method == "PUT" and client_id:
             body = json.loads(event.get("body") or "{}")
             cur.execute(
-                """UPDATE clients SET name=%s, phone=%s, email=%s, company=%s, notes=%s, status=%s, updated_at=NOW()
+                """UPDATE clients SET name=%s, full_name=%s, phone=%s, company=%s, age=%s, conviction=%s,
+                   chronic_diseases=%s, dispensary_record=%s, notes=%s, status=%s,
+                   docs_photos=%s::jsonb, relations_files=%s::jsonb, tickets_files=%s::jsonb, contract_files=%s::jsonb,
+                   updated_at=NOW()
                    WHERE id=%s RETURNING *""",
                 (
-                    body.get("name", ""),
+                    body.get("full_name", ""),
+                    body.get("full_name", ""),
                     body.get("phone", ""),
-                    body.get("email", ""),
                     body.get("company", ""),
+                    body.get("age") or None,
+                    body.get("conviction", ""),
+                    body.get("chronic_diseases", ""),
+                    body.get("dispensary_record", ""),
                     body.get("notes", ""),
                     body.get("status", "active"),
+                    json.dumps(body.get("docs_photos", [])),
+                    json.dumps(body.get("relations_files", [])),
+                    json.dumps(body.get("tickets_files", [])),
+                    json.dumps(body.get("contract_files", [])),
                     client_id,
                 ),
             )
-            client = cur.fetchone()
+            row = cur.fetchone()
             conn.commit()
-            if not client:
+            if not row:
                 return {"statusCode": 404, "headers": cors_headers, "body": json.dumps({"error": "Not found"})}
-            client = dict(client)
-            if client.get("created_at"):
-                client["created_at"] = client["created_at"].isoformat()
-            if client.get("updated_at"):
-                client["updated_at"] = client["updated_at"].isoformat()
-            return {"statusCode": 200, "headers": cors_headers, "body": json.dumps({"client": client})}
+            return {"statusCode": 200, "headers": cors_headers, "body": json.dumps({"client": serialize(row)})}
 
         elif method == "DELETE" and client_id:
             cur.execute("DELETE FROM clients WHERE id=%s RETURNING id", (client_id,))

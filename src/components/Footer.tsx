@@ -25,7 +25,7 @@ export default function Footer() {
               />
               <div>
                 <div className="font-display text-sm tracking-[0.2em] uppercase text-[hsl(var(--gold))]">
-                  Военная служба
+                  Служба
                 </div>
                 <div className="font-body text-[10px] tracking-wider uppercase text-foreground/40">
                   по контракту

@@ -108,9 +108,9 @@ export default function Index() {
         <div className="relative z-10 max-w-5xl mx-auto px-6 pt-24">
           <div className="md:max-w-[55%]">
           <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold tracking-[0.05em] uppercase leading-none mb-6 animate-fade-in-up delay-200">
-            Служба
+            "Служба по контракту"
             <br />
-            <span className="text-[hsl(var(--gold))]">по контракту</span>
+            <span className="text-[hsl(var(--gold))]">в тылу</span>
           </h1>
 
           <p className="font-body text-base md:text-lg text-foreground/90 max-w-2xl mb-10 leading-relaxed animate-fade-in-up delay-300">

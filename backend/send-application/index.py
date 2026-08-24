@@ -21,7 +21,7 @@ def send_max_notification(name: str, phone: str, region: str, comment: str) -> N
         f"Комментарий: {comment}"
     )
 
-    query = urllib.parse.urlencode({'user_id': chat_id})
+    query = urllib.parse.urlencode({'chat_id': chat_id})
     url = f"https://platform-api2.max.ru/messages?{query}"
     data = json.dumps({'text': text}).encode('utf-8')
     req = urllib.request.Request(

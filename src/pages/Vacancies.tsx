@@ -16,9 +16,10 @@ export default function Vacancies() {
         <div className="max-w-7xl mx-auto">
           <div className="mb-12">
             <div className="font-body text-xs tracking-[0.3em] uppercase text-[hsl(var(--gold))] mb-3">Раздел 03</div>
-            <h1 className="font-display text-4xl md:text-5xl uppercase tracking-wide gold-line">Вакансии на СВО</h1>
+            <h1 className="font-display text-4xl md:text-5xl uppercase tracking-wide gold-line">Вакансии в тылу и в Крыму</h1>
             <p className="mt-6 font-body text-foreground/60 max-w-xl text-sm leading-relaxed">
-              Актуальные должности в зоне специальной военной операции. Отбор осуществляется
+              Тыловые специальности вдали от линии боевого соприкосновения — служба в местах
+              дислокации на территории Крыма и в тыловых подразделениях. Отбор осуществляется
               на конкурсной основе с учётом физической подготовки и опыта.
             </p>
           </div>

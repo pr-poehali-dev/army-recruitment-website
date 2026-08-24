@@ -46,7 +46,7 @@ export default function Navbar() {
 
         <button
           onClick={() => navigate("/contacts")}
-          className="hidden md:flex items-center gap-2 bg-[hsl(var(--gold))] text-[hsl(var(--navy))] font-display text-xs tracking-[0.15em] uppercase px-5 py-2.5 hover:bg-[hsl(43,74%,42%)] transition-colors"
+          className="hidden md:flex items-center gap-2 bg-[hsl(var(--crimson))] text-white font-display text-xs tracking-[0.15em] uppercase px-5 py-2.5 hover:bg-[hsl(0,65%,28%)] transition-colors"
         >
           <Icon name="Phone" size={14} />
           Связаться
@@ -76,7 +76,7 @@ export default function Navbar() {
           <div className="p-4">
             <button
               onClick={() => { setMobileMenuOpen(false); navigate("/contacts"); }}
-              className="w-full bg-[hsl(var(--gold))] text-[hsl(var(--navy))] font-display text-sm tracking-[0.15em] uppercase py-3 hover:bg-[hsl(43,74%,42%)] transition-colors"
+              className="w-full bg-[hsl(var(--crimson))] text-white font-display text-sm tracking-[0.15em] uppercase py-3 hover:bg-[hsl(0,65%,28%)] transition-colors"
             >
               Связаться
             </button>

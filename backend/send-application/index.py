@@ -1,5 +1,6 @@
 import json
 import os
+import ssl
 import urllib.request
 import urllib.parse
 import urllib.error
@@ -30,7 +31,10 @@ def send_max_notification(name: str, phone: str, region: str, comment: str) -> N
         method='POST'
     )
     try:
-        resp = urllib.request.urlopen(req, timeout=5)
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+        resp = urllib.request.urlopen(req, timeout=5, context=ctx)
         print(f"MAX API response: {resp.status} {resp.read()}")
     except urllib.error.HTTPError as e:
         print(f"MAX API HTTPError: {e.code} {e.read()}")

@@ -20,13 +20,13 @@ def send_max_notification(name: str, phone: str, region: str, comment: str) -> N
         f"Комментарий: {comment}"
     )
 
-    query = urllib.parse.urlencode({'chat_id': chat_id})
-    url = f"https://botapi.max.ru/messages?{query}"
+    query = urllib.parse.urlencode({'user_id': chat_id})
+    url = f"https://platform-api2.max.ru/messages?{query}"
     data = json.dumps({'text': text}).encode('utf-8')
     req = urllib.request.Request(
         url,
         data=data,
-        headers={'Content-Type': 'application/json', 'Authorization': f'Bearer {token}'},
+        headers={'Content-Type': 'application/json', 'Authorization': token},
         method='POST'
     )
     try:

@@ -1,12 +1,39 @@
 import json
 import smtplib
 import os
+import urllib.request
+import urllib.parse
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 
+def send_max_notification(name: str, phone: str, region: str, comment: str) -> None:
+    """Отправка уведомления о заявке в мессенджер MAX"""
+    token = os.environ.get('MAX_BOT_TOKEN')
+    chat_id = os.environ.get('MAX_CHAT_ID')
+    if not token or not chat_id:
+        return
+
+    text = (
+        "Новая заявка на военную службу по контракту\n\n"
+        f"ФИО: {name}\n"
+        f"Телефон: {phone}\n"
+        f"Регион: {region}\n"
+        f"Комментарий: {comment}"
+    )
+
+    query = urllib.parse.urlencode({'chat_id': chat_id, 'access_token': token})
+    url = f"https://botapi.max.ru/messages?{query}"
+    data = json.dumps({'text': text}).encode('utf-8')
+    req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'}, method='POST')
+    try:
+        urllib.request.urlopen(req, timeout=5)
+    except Exception:
+        pass
+
+
 def handler(event: dict, context) -> dict:
-    """Отправка заявки с сайта на почту docos23@mail.ru"""
+    """Отправка заявки с сайта на почту docos23@mail.ru и в мессенджер MAX"""
 
     if event.get('httpMethod') == 'OPTIONS':
         return {
@@ -54,6 +81,8 @@ def handler(event: dict, context) -> dict:
     with smtplib.SMTP_SSL('smtp.mail.ru', 465) as server:
         server.login('docos23@mail.ru', os.environ['SMTP_PASSWORD'])
         server.sendmail('docos23@mail.ru', 'docos23@mail.ru', msg.as_string())
+
+    send_max_notification(name, phone, region, comment)
 
     return {
         'statusCode': 200,

@@ -35,6 +35,7 @@ function AccordionItem({ q, a }: { q: string; a: string }) {
 export default function Index() {
   const [selectedRegion, setSelectedRegion] = useState("");
   const [selectedVacancy, setSelectedVacancy] = useState("");
+  const [openVacancy, setOpenVacancy] = useState<string | null>(null);
   const [formName, setFormName] = useState("");
   const [formPhone, setFormPhone] = useState("");
   const [formStatus, setFormStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -273,17 +274,38 @@ export default function Index() {
               ))}
             </div>
             {VACANCIES.map((v) => (
-              <div
-                key={v.role}
-                onClick={() => { setSelectedVacancy(v.role); document.getElementById("contacts")?.scrollIntoView({ behavior: "smooth" }); }}
-                className="grid grid-cols-4 px-6 py-4 items-center hover:bg-[hsl(var(--gold)/0.04)] transition-colors cursor-pointer border-b border-[hsl(var(--border)/0.5)] last:border-0 group"
-              >
-                <div className="font-display text-sm tracking-wide text-foreground group-hover:text-[hsl(var(--gold))] transition-colors">
-                  {v.role}
+              <div key={v.role} className="border-b border-[hsl(var(--border)/0.5)] last:border-0">
+                <div
+                  onClick={() => setOpenVacancy(openVacancy === v.role ? null : v.role)}
+                  className="grid grid-cols-[1fr,1fr,1fr,1fr,auto] px-6 py-4 items-center hover:bg-[hsl(var(--gold)/0.04)] transition-colors cursor-pointer group"
+                >
+                  <div className="font-display text-sm tracking-wide text-foreground group-hover:text-[hsl(var(--gold))] transition-colors">
+                    {v.role}
+                  </div>
+                  <div className="font-body text-xs text-foreground/50">{v.category}</div>
+                  <div className="font-body text-xs text-foreground/40">{v.rank}</div>
+                  <div className="font-display text-sm text-[hsl(var(--gold)/0.85)]">{v.pay}</div>
+                  <Icon
+                    name={openVacancy === v.role ? "ChevronUp" : "ChevronDown"}
+                    size={16}
+                    className="text-foreground/30 justify-self-end"
+                  />
                 </div>
-                <div className="font-body text-xs text-foreground/50">{v.category}</div>
-                <div className="font-body text-xs text-foreground/40">{v.rank}</div>
-                <div className="font-display text-sm text-[hsl(var(--gold)/0.85)]">{v.pay}</div>
+                {openVacancy === v.role && (
+                  <div className="px-6 pb-5 -mt-1">
+                    {v.desc && (
+                      <p className="font-body text-xs text-foreground/60 leading-relaxed max-w-3xl mb-3">
+                        {v.desc}
+                      </p>
+                    )}
+                    <button
+                      onClick={() => { setSelectedVacancy(v.role); document.getElementById("contacts")?.scrollIntoView({ behavior: "smooth" }); }}
+                      className="inline-flex items-center gap-2 text-[hsl(var(--gold))] font-display text-xs tracking-[0.15em] uppercase hover:opacity-70 transition-opacity"
+                    >
+                      Подать заявку <Icon name="ArrowRight" size={13} />
+                    </button>
+                  </div>
+                )}
               </div>
             ))}
           </div>

@@ -2,6 +2,7 @@ import json
 import os
 import urllib.request
 import urllib.parse
+import urllib.error
 
 
 def send_max_notification(name: str, phone: str, region: str, comment: str) -> None:
@@ -19,14 +20,22 @@ def send_max_notification(name: str, phone: str, region: str, comment: str) -> N
         f"Комментарий: {comment}"
     )
 
-    query = urllib.parse.urlencode({'chat_id': chat_id, 'access_token': token})
+    query = urllib.parse.urlencode({'chat_id': chat_id})
     url = f"https://botapi.max.ru/messages?{query}"
     data = json.dumps({'text': text}).encode('utf-8')
-    req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'}, method='POST')
+    req = urllib.request.Request(
+        url,
+        data=data,
+        headers={'Content-Type': 'application/json', 'Authorization': f'Bearer {token}'},
+        method='POST'
+    )
     try:
-        urllib.request.urlopen(req, timeout=5)
-    except Exception:
-        pass
+        resp = urllib.request.urlopen(req, timeout=5)
+        print(f"MAX API response: {resp.status} {resp.read()}")
+    except urllib.error.HTTPError as e:
+        print(f"MAX API HTTPError: {e.code} {e.read()}")
+    except Exception as e:
+        print(f"MAX API error: {repr(e)}")
 
 
 def handler(event: dict, context) -> dict:

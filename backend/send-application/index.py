@@ -78,11 +78,14 @@ def handler(event: dict, context) -> dict:
 
     msg.attach(MIMEText(html, 'html'))
 
-    with smtplib.SMTP_SSL('smtp.mail.ru', 465) as server:
-        server.login('docos23@mail.ru', os.environ['SMTP_PASSWORD'])
-        server.sendmail('docos23@mail.ru', 'docos23@mail.ru', msg.as_string())
-
     send_max_notification(name, phone, region, comment)
+
+    try:
+        with smtplib.SMTP_SSL('smtp.mail.ru', 465) as server:
+            server.login('docos23@mail.ru', os.environ['SMTP_PASSWORD'])
+            server.sendmail('docos23@mail.ru', 'docos23@mail.ru', msg.as_string())
+    except Exception:
+        pass
 
     return {
         'statusCode': 200,

@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Icon from "@/components/ui/icon";
+import { trackGoal } from "@/lib/analytics";
 
 const NAV_ITEMS = [
   { id: "regions", label: "Регионы", path: "/regions" },
   { id: "conditions", label: "Условия", path: "/conditions" },
   { id: "vacancies", label: "Вакансии", path: "/vacancies" },
   { id: "faq", label: "Вопросы", path: "/faq" },
+  { id: "news", label: "Новости", path: "/news" },
   { id: "contacts", label: "Контакты", path: "/contacts" },
 ];
 
@@ -18,7 +20,7 @@ export default function Navbar() {
 
   const handleNav = (item: typeof NAV_ITEMS[0]) => {
     setMobileMenuOpen(false);
-    if (isHome) {
+    if (isHome && item.id !== "news") {
       document.getElementById(item.id)?.scrollIntoView({ behavior: "smooth" });
     } else {
       navigate(item.path);
@@ -45,7 +47,7 @@ export default function Navbar() {
         </div>
 
         <button
-          onClick={() => navigate("/contacts")}
+          onClick={() => { trackGoal("cta_click", { location: "navbar" }); navigate("/contacts"); }}
           className="hidden md:flex items-center gap-2 bg-[hsl(var(--crimson))] text-white font-display text-xs tracking-[0.15em] uppercase px-5 py-2.5 hover:bg-[hsl(0,65%,28%)] transition-colors"
         >
           <Icon name="Phone" size={14} />

@@ -2,7 +2,9 @@ import { useState } from "react";
 import Icon from "@/components/ui/icon";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ApplicationsCounter from "@/components/ApplicationsCounter";
 import { REGIONS, CONDITIONS, VACANCIES, FAQ, SUBMIT_URL } from "@/data/constants";
+import { trackGoal } from "@/lib/analytics";
 
 const HERO_IMAGE =
   "https://cdn.poehali.dev/projects/bef0083e-eec9-47a1-a374-befe699f4e5f/files/279554c8-b928-4c02-814f-f9d0c6fd040f.jpg";
@@ -15,9 +17,9 @@ function AccordionItem({ q, a }: { q: string; a: string }) {
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between py-5 text-left gap-4 group"
       >
-        <span className="font-display text-base tracking-wide text-foreground/90 group-hover:text-[hsl(var(--gold))] transition-colors">
+        <h3 className="font-display text-base tracking-wide text-foreground/90 group-hover:text-[hsl(var(--gold))] transition-colors m-0">
           {q}
-        </span>
+        </h3>
         <span
           className="shrink-0 w-6 h-6 flex items-center justify-center border border-[hsl(var(--gold)/0.4)] text-[hsl(var(--gold))] transition-transform duration-300"
           style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
@@ -65,6 +67,7 @@ export default function Index() {
       });
       if (res.ok) {
         setFormStatus("success");
+        trackGoal("form_submit", { source: "index" });
         setFormName("");
         setFormPhone("");
         setSelectedRegion("");
@@ -122,7 +125,7 @@ export default function Index() {
           <div className="flex flex-col sm:flex-row items-start gap-4 animate-fade-in-up delay-400">
             <button
               id="contract"
-              onClick={() => scrollTo("contacts")}
+              onClick={() => { trackGoal("cta_click", { location: "hero" }); scrollTo("contacts"); }}
               className="flex items-center gap-3 bg-[hsl(var(--crimson))] text-white font-display text-base tracking-[0.15em] uppercase px-10 py-5 shadow-lg hover:bg-[hsl(0,65%,28%)] transition-all duration-200 hover:scale-105 font-bold"
             >
               <Icon name="FileSignature" size={20} />
@@ -135,6 +138,10 @@ export default function Index() {
               <Icon name="Search" size={18} />
               Смотреть вакансии
             </button>
+          </div>
+
+          <div className="mt-6">
+            <ApplicationsCounter />
           </div>
           </div>
 

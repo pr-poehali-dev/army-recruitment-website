@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
+import { trackGoal } from "@/lib/analytics";
 
 const LINKS = [
   { label: "Регионы", path: "/regions" },
   { label: "Условия", path: "/conditions" },
   { label: "Вакансии", path: "/vacancies" },
   { label: "Вопросы", path: "/faq" },
+  { label: "Новости", path: "/news" },
   { label: "Контакты", path: "/contacts" },
 ];
 
@@ -89,7 +91,7 @@ export default function Footer() {
             © 2025 Военная служба по контракту. Все права защищены.
           </div>
           <button
-            onClick={() => navigate("/contacts")}
+            onClick={() => { trackGoal("cta_click", { location: "footer" }); navigate("/contacts"); }}
             className="flex items-center gap-2 bg-[hsl(var(--crimson))] text-white font-display text-xs tracking-[0.15em] uppercase px-5 py-2.5 hover:bg-[hsl(0,65%,28%)] transition-colors"
           >
             <Icon name="FileSignature" size={13} />

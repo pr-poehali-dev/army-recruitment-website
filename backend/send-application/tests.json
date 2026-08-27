@@ -5,6 +5,12 @@
       "method": "OPTIONS",
       "path": "/",
       "expectedStatus": 200
+    },
+    {
+      "name": "Get today stats",
+      "method": "GET",
+      "path": "/?action=stats",
+      "expectedStatus": 200
     }
   ]
 }

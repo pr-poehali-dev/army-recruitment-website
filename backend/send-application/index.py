@@ -4,6 +4,12 @@ import ssl
 import urllib.request
 import urllib.parse
 import urllib.error
+import psycopg2
+
+
+def get_connection():
+    dsn = os.environ['DATABASE_URL']
+    return psycopg2.connect(dsn)
 
 
 def send_max_notification(name: str, phone: str, region: str, comment: str) -> None:
@@ -43,30 +49,64 @@ def send_max_notification(name: str, phone: str, region: str, comment: str) -> N
 
 
 def handler(event: dict, context) -> dict:
-    """Отправка заявки с сайта в мессенджер MAX"""
+    """Приём заявок с сайта: сохранение в БД, уведомление в MAX, отдача счётчика заявок за сегодня"""
 
     if event.get('httpMethod') == 'OPTIONS':
         return {
             'statusCode': 200,
             'headers': {
                 'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'POST, OPTIONS',
+                'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Max-Age': '86400'
             },
             'body': ''
         }
 
+    method = event.get('httpMethod')
+    headers = {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'}
+
+    if method == 'GET':
+        params = event.get('queryStringParameters') or {}
+        if params.get('action') == 'stats':
+            conn = get_connection()
+            try:
+                cur = conn.cursor()
+                cur.execute("SELECT COUNT(*) FROM applications WHERE created_at::date = CURRENT_DATE")
+                today_count = cur.fetchone()[0]
+                cur.close()
+            finally:
+                conn.close()
+            return {
+                'statusCode': 200,
+                'headers': headers,
+                'body': json.dumps({'today': today_count})
+            }
+        return {'statusCode': 400, 'headers': headers, 'body': json.dumps({'error': 'Unknown action'})}
+
     body = json.loads(event.get('body', '{}'))
     name = body.get('name', '—')
     phone = body.get('phone', '—')
     region = body.get('region', '—')
     comment = body.get('comment', '—')
+    source = body.get('source', 'form')
+
+    conn = get_connection()
+    try:
+        cur = conn.cursor()
+        cur.execute(
+            "INSERT INTO applications (name, phone, region, comment, source) VALUES (%s, %s, %s, %s, %s)",
+            (name, phone, region, comment, source)
+        )
+        conn.commit()
+        cur.close()
+    finally:
+        conn.close()
 
     send_max_notification(name, phone, region, comment)
 
     return {
         'statusCode': 200,
-        'headers': {'Access-Control-Allow-Origin': '*'},
+        'headers': headers,
         'body': json.dumps({'success': True})
     }

@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Icon from "@/components/ui/icon";
 import { REGIONS, SUBMIT_URL } from "@/data/constants";
+import { trackGoal } from "@/lib/analytics";
 
 export default function Contacts() {
   const [selectedRegion, setSelectedRegion] = useState("");
@@ -27,6 +28,7 @@ export default function Contacts() {
       });
       if (res.ok) {
         setFormStatus("success");
+        trackGoal("form_submit", { source: "contacts" });
         setFormName("");
         setFormPhone("");
         setSelectedRegion("");

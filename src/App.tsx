@@ -1,8 +1,10 @@
+import { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { trackPageview } from "@/lib/analytics";
 import Index from "./pages/Index";
 import Regions from "./pages/Regions";
 import Conditions from "./pages/Conditions";
@@ -20,6 +22,11 @@ const queryClient = new QueryClient();
 const AppRoutes = () => {
   const location = useLocation();
   const isCrm = location.pathname === "/crm";
+
+  useEffect(() => {
+    trackPageview(location.pathname);
+  }, [location.pathname]);
+
   return (
     <>
       <Routes>

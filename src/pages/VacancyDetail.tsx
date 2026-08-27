@@ -6,6 +6,9 @@ import Icon from "@/components/ui/icon";
 import { VACANCIES } from "@/data/constants";
 import { slugify } from "@/lib/slug";
 import { trackGoal } from "@/lib/analytics";
+import { buildJobPostingSchema, injectJsonLd, removeJsonLd } from "@/lib/jobPostingSchema";
+
+const JSON_LD_ID = "job-posting-schema";
 
 export default function VacancyDetail() {
   const navigate = useNavigate();
@@ -13,10 +16,13 @@ export default function VacancyDetail() {
   const vacancy = VACANCIES.find((v) => slugify(v.role) === slug);
 
   useEffect(() => {
-    if (vacancy) {
+    if (vacancy && slug) {
       document.title = `${vacancy.role} — ${vacancy.pay} | Служба по контракту`;
+      const url = `https://доброволец-77.рф/vacancies/${slug}`;
+      injectJsonLd(JSON_LD_ID, buildJobPostingSchema(vacancy, url));
     }
-  }, [vacancy]);
+    return () => removeJsonLd(JSON_LD_ID);
+  }, [vacancy, slug]);
 
   if (!vacancy) {
     return (

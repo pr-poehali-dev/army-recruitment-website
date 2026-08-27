@@ -1,13 +1,12 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Icon from "@/components/ui/icon";
 import { VACANCIES } from "@/data/constants";
+import { slugify } from "@/lib/slug";
 
 export default function Vacancies() {
   const navigate = useNavigate();
-  const [openRole, setOpenRole] = useState<string | null>(null);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -33,7 +32,7 @@ export default function Vacancies() {
             {VACANCIES.map((v) => (
               <div key={v.role} className="border-b border-[hsl(var(--border)/0.5)] last:border-0">
                 <div
-                  onClick={() => v.desc && setOpenRole(openRole === v.role ? null : v.role)}
+                  onClick={() => navigate(`/vacancies/${slugify(v.role)}`)}
                   className="grid grid-cols-[1fr,1fr,1fr,1fr,auto] px-6 py-4 items-center hover:bg-[hsl(var(--gold)/0.04)] transition-colors cursor-pointer group"
                 >
                   <div className="font-display text-sm tracking-wide text-foreground group-hover:text-[hsl(var(--gold))] transition-colors">
@@ -42,29 +41,12 @@ export default function Vacancies() {
                   <div className="font-body text-xs text-foreground/50">{v.category}</div>
                   <div className="font-body text-xs text-foreground/40">{v.rank}</div>
                   <div className="font-display text-sm text-[hsl(var(--gold)/0.85)]">{v.pay}</div>
-                  {v.desc ? (
-                    <Icon
-                      name={openRole === v.role ? "ChevronUp" : "ChevronDown"}
-                      size={16}
-                      className="text-foreground/30 justify-self-end"
-                    />
-                  ) : (
-                    <span />
-                  )}
+                  <Icon
+                    name="ArrowRight"
+                    size={16}
+                    className="text-foreground/30 justify-self-end group-hover:text-[hsl(var(--gold))] transition-colors"
+                  />
                 </div>
-                {v.desc && openRole === v.role && (
-                  <div className="px-6 pb-5 -mt-1">
-                    <p className="font-body text-xs text-foreground/60 leading-relaxed max-w-3xl">
-                      {v.desc}
-                    </p>
-                    <button
-                      onClick={() => navigate("/contacts")}
-                      className="mt-3 inline-flex items-center gap-2 text-[hsl(var(--gold))] font-display text-xs tracking-[0.15em] uppercase hover:opacity-70 transition-opacity"
-                    >
-                      Подать заявку <Icon name="ArrowRight" size={13} />
-                    </button>
-                  </div>
-                )}
               </div>
             ))}
           </div>

@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import Regions from "./pages/Regions";
 import Conditions from "./pages/Conditions";
 import Vacancies from "./pages/Vacancies";
+import VacancyDetail from "./pages/VacancyDetail";
 import Faq from "./pages/Faq";
 import News from "./pages/News";
 import NewsArticle from "./pages/NewsArticle";
@@ -34,6 +35,7 @@ const AppRoutes = () => {
         <Route path="/regions" element={<Regions />} />
         <Route path="/conditions" element={<Conditions />} />
         <Route path="/vacancies" element={<Vacancies />} />
+        <Route path="/vacancies/:slug" element={<VacancyDetail />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/news" element={<News />} />
         <Route path="/news/:slug" element={<NewsArticle />} />
